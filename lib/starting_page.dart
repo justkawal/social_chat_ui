@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'dots.dart';
+import 'lineart_gradient.dart';
 
 class StartingPage extends StatefulWidget {
   StartingPage({Key key}) : super(key: key);
@@ -109,13 +110,7 @@ class _StartingPageState extends State<StartingPage> {
                                   height: double.infinity,
                                   margin: EdgeInsets.symmetric(vertical: 35),
                                   decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xfff5ac91),
-                                        Color(0xffb99fc5),
-                                        Color(0xff7abaf1),
-                                      ],
-                                    ),
+                                    gradient: getLinearGradient(),
                                     borderRadius: BorderRadius.circular(60),
                                   ),
                                   child: Row(
