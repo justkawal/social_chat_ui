@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:social_mobile_app/messages.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
@@ -18,7 +19,7 @@ class _ProfileState extends State<Profile> {
     ["Follows", "3000"]
   ];
 
-  String profileImage = "assets/profile.jpg";
+  String profileImage = "assets/profile.png";
 
   List<String> images = [
     "art3",
@@ -70,35 +71,37 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          getHeader(),
-          Expanded(
-            child: Container(
-              color: Colors.white,
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: ListView(
-                  controller: _scrollController,
-                  children: <Widget>[
-                    Container(
-                      height: 465,
-                      child: Stack(
-                        children: <Widget>[
-                          getMyProfile(),
-                          getFollowersBar(),
-                        ],
+    return Scaffold(
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            getHeader(),
+            Expanded(
+              child: Container(
+                color: Colors.white,
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: ListView(
+                    controller: _scrollController,
+                    children: <Widget>[
+                      Container(
+                        height: 465,
+                        child: Stack(
+                          children: <Widget>[
+                            getMyProfile(),
+                            getFollowersBar(),
+                          ],
+                        ),
                       ),
-                    ),
-                    getWidgetList(),
-                  ],
+                      getWidgetList(),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -131,10 +134,9 @@ class _ProfileState extends State<Profile> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 25),
+                padding: const EdgeInsets.symmetric(vertical: 25),
                 height: 180,
                 alignment: Alignment.center,
-                //color: Colors.blue,
                 child: Container(
                   decoration: BoxDecoration(
                       color: Color(0xfff6d2eb),
@@ -142,7 +144,7 @@ class _ProfileState extends State<Profile> {
                         BoxShadow(
                             color: Color(0xfffae3f2),
                             blurRadius: 26,
-                            spreadRadius: -11,
+                            spreadRadius: -21,
                             offset: Offset(0, 34)),
                       ],
                       borderRadius: BorderRadius.circular(65)),
@@ -199,22 +201,18 @@ class _ProfileState extends State<Profile> {
         height: 140,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Colors.white,
-            Color.fromARGB(255, 254, 250, 250),
-            Colors.white
-          ], stops: [
-            0,
-            .04,
-            .1
-          ]),
+          gradient: LinearGradient(
+              colors: [Colors.white, Color(0xfffdf6f7), Colors.white],
+              stops: [0, .22, .1],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight),
         ),
         child: ClipRRect(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(100),
                 bottomRight: Radius.circular(100)),
             child: Container(
-              padding: EdgeInsets.only(top: 40, left: 8, right: 8),
+              padding: const EdgeInsets.only(top: 40, left: 8, right: 8),
               color: Color(0xfffbeeef),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -259,16 +257,21 @@ class _ProfileState extends State<Profile> {
               colors: [Colors.white, Color(0xfffefafb)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight)),
-      padding: EdgeInsets.only(top: 30, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(
-                Icons.arrow_back,
-                size: 30,
-                color: Color(0xff6a515e),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 30,
+                  color: Color(0xff6a515e),
+                ),
               ),
               SizedBox(width: 10),
               if (showProfilePic)
@@ -311,10 +314,18 @@ class _ProfileState extends State<Profile> {
                 ),
             ],
           ),
-          Icon(
-            Icons.more_vert,
-            size: 30,
-            color: Color(0xff6a515e),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Messages()),
+              );
+            },
+            child: Icon(
+              Icons.more_vert,
+              size: 30,
+              color: Color(0xff6a515e),
+            ),
           ),
         ],
       ),
@@ -329,7 +340,7 @@ class _ProfileState extends State<Profile> {
         borderRadius: BorderRadius.only(topLeft: Radius.circular(100)),
         child: Container(
           color: Colors.white,
-          padding: EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
           width: MediaQuery.of(context).size.width,
           child: StaggeredGridView.count(
             primary: false,
@@ -363,8 +374,8 @@ class _ProfileState extends State<Profile> {
         .entries
         .map((MapEntry map) {
       return Container(
-          padding: EdgeInsets.all(5),
-          margin: EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.all(5),
+          margin: const EdgeInsets.symmetric(horizontal: 5),
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: Color(0xffecc8d1),
@@ -373,39 +384,5 @@ class _ProfileState extends State<Profile> {
             image: AssetImage("assets/${images[map.key]}.png"),
           ));
     }).toList();
-  }
-/* 
-  StaggeredTile _getTile(int index) => _tiles[index];
-
-  Widget _getChild(BuildContext context, int index) {
-    return Container(
-      width: 200,
-      height: 300,
-      key: ObjectKey('$index'),
-      color: Colors.blue,
-      child: Center(
-        child: CircleAvatar(
-          backgroundColor: Colors.white,
-          child: Text('$index'),
-        ),
-      ),
-    );
-  } */
-}
-
-class _Tile extends StatelessWidget {
-  const _Tile(this.source, this.index);
-
-  final String source;
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      child: Image(
-        image: AssetImage("assets/photos.png"),
-      ),
-    );
   }
 }

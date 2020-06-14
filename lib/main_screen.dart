@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_mobile_app/profile.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key key}) : super(key: key);
@@ -18,14 +19,16 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [Colors.white, Color(0xfffef7f7)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight)),
-      child: ListView(
-        children: <Widget>[getHeader(), getProfileList(), getImagesList()],
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [Colors.white, Color(0xfffef7f7)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight)),
+        child: ListView(
+          children: <Widget>[getHeader(), getProfileList(), getImagesList()],
+        ),
       ),
     );
   }
@@ -72,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: Image(
                         width: 90,
                         height: 90,
-                        image: AssetImage("assets/profile.jpg"),
+                        image: AssetImage("assets/profile.png"),
                         fit: BoxFit.cover,
                       ),
                     )
@@ -162,7 +165,7 @@ class _MainScreenState extends State<MainScreen> {
                               borderRadius: BorderRadius.circular(25),
                               child: Image(
                                 image: AssetImage(
-                                    "assets/profile.jpg"), // list[1] background image url and change to Image.network()
+                                    "assets/profile.png"), // list[1] background image url and change to Image.network()
                                 fit: BoxFit.cover,
                                 width: 45,
                                 height: 45,
@@ -229,26 +232,34 @@ class _MainScreenState extends State<MainScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "Hello,",
-                maxLines: 1,
-                overflow: TextOverflow.fade,
-                style: TextStyle(fontSize: 25, color: Color(0xfffd2bbc7)),
-              ),
-              Text(
-                "Robert",
-                maxLines: 1,
-                overflow: TextOverflow.fade,
-                style: TextStyle(
-                    fontSize: 35,
-                    color: Color(0xffa06784),
-                    fontWeight: FontWeight.w600),
-              ),
-            ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Profile()),
+              );
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "Hello,",
+                  maxLines: 1,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(fontSize: 25, color: Color(0xfffd2bbc7)),
+                ),
+                Text(
+                  "Robert",
+                  maxLines: 1,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(
+                      fontSize: 35,
+                      color: Color(0xffa06784),
+                      fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
           ),
           Container(
             padding: EdgeInsets.all(11),

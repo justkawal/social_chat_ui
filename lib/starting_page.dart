@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_mobile_app/main_screen.dart';
 
 import 'dots.dart';
 import 'lineart_gradient.dart';
@@ -104,31 +105,40 @@ class _StartingPageState extends State<StartingPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * .70,
-                                  height: double.infinity,
-                                  margin: EdgeInsets.symmetric(vertical: 35),
-                                  decoration: BoxDecoration(
-                                    gradient: getLinearGradient(),
-                                    borderRadius: BorderRadius.circular(60),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Text(
-                                        "Get Started",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.fade,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 22),
-                                      ),
-                                      Icon(Icons.arrow_forward,
-                                          color: Colors.white, size: 30),
-                                    ],
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MainScreen()),
+                                    );
+                                  },
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * .70,
+                                    height: double.infinity,
+                                    margin: EdgeInsets.symmetric(vertical: 35),
+                                    decoration: BoxDecoration(
+                                      gradient: getLinearGradient(),
+                                      borderRadius: BorderRadius.circular(60),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Text(
+                                          "Get Started",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.fade,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 22),
+                                        ),
+                                        Icon(Icons.arrow_forward,
+                                            color: Colors.white, size: 30),
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],
@@ -160,8 +170,9 @@ class _StartingPageState extends State<StartingPage> {
                           'The best photos from good people',
                           maxLines: 2,
                           overflow: TextOverflow.fade,
-                          style:
-                              TextStyle(fontSize: 30, color: Color(0xff6a515e)),
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Color(0xff6a515e)), // 8349404250
                         ),
                         Container(
                           width: 100,

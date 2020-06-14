@@ -6,20 +6,15 @@ import 'box_shadow.dart';
 import 'lineart_gradient.dart';
 
 class Chatting extends StatefulWidget {
-  Chatting({Key key}) : super(key: key);
+  List<List<String>> chats;
+  String name;
+  Chatting({Key key, this.name, this.chats}) : super(key: key);
 
   @override
   _ChattingState createState() => _ChattingState();
 }
 
 class _ChattingState extends State<Chatting> {
-  List<List<String>> chats = [
-    ["own_user_id", "Hey"],
-    ["user1", "Heya"],
-    ["own_user_id", "What are you doing?"],
-    ["user1", "Nothing cool"],
-    ["own_user_id", "How's you life going?"]
-  ];
   ScrollController _scrollController = ScrollController();
   @override
   void initState() {
@@ -33,70 +28,138 @@ class _ChattingState extends State<Chatting> {
   }
 
   _scrollToBottom() {
-    _scrollController.animateTo(
-      0.0,
-      curve: Curves.easeOut,
-      duration: const Duration(milliseconds: 300),
-    );
+    if (_scrollController != null && _scrollController.positions.isNotEmpty)
+      _scrollController.animateTo(
+        0.0,
+        curve: Curves.easeOut,
+        duration: const Duration(milliseconds: 300),
+      );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xfffdf4f6),
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 210,
-            decoration: BoxDecoration(
-              color: Color(0xfffffefe),
-              borderRadius:
-                  BorderRadius.only(bottomRight: Radius.circular(100)),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: Stack(
+    return Scaffold(
+      body: Container(
+        color: Color(0xfffdf4f6),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 210,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.only(bottomRight: Radius.circular(100)),
+              ),
+              child: Row(
                 children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Typing...",
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                            style: TextStyle(
+                                fontSize: 20, color: Color(0xfffd2bbc7)),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "Robert",
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                            style: TextStyle(
+                                fontSize: 33,
+                                color: Color(0xffa06784),
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Expanded(
-                          flex: 10,
-                          child: Container(
-                            child: MediaQuery.removePadding(
-                              context: context,
-                              removeTop: true,
-                              removeBottom: true,
-                              child: ListView(
-                                controller: _scrollController,
-                                reverse: true,
-                                children:
-                                    chats.asMap().entries.map((MapEntry map) {
-                                  List<String> value = map.value;
-                                  return Bubble(
-                                    message: value[1].toString(),
-                                    isMe: value[0] == "own_user_id",
-                                  );
-                                }).toList(),
-                              ),
+                        Container(
+                          width: 100,
+                          height: 100,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(60),
+                            child: Image(
+                              image: AssetImage("assets/profile.png"),
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            //color: Colors.green,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: Column(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 10,
+                            child: Container(
+                              child: widget.chats != null
+                                  ? MediaQuery.removePadding(
+                                      context: context,
+                                      removeTop: true,
+                                      removeBottom: true,
+                                      child: ListView(
+                                        controller: _scrollController,
+                                        reverse: true,
+                                        children: widget.chats.reversed
+                                            .toList()
+                                            .asMap()
+                                            .entries
+                                            .map((MapEntry map) {
+                                          List<String> value = map.value;
+                                          return Bubble(
+                                            message: value[1].toString(),
+                                            isMe: value[0] == "own_user_id",
+                                          );
+                                        }).toList(),
+                                      ))
+                                  : Center(
+                                      child: Container(
+                                      child: Text(
+                                        "Start chatting ${widget.name != null ? "with " + widget.name : ""}",
+                                        maxLines: 3,
+                                        overflow: TextOverflow.fade,
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            color: Color(0xfffd2bbc7)),
+                                      ),
+                                    )),
+                            ),
+                          ),
+                          Container(
                             width: MediaQuery.of(context).size.width,
                             height: 140,
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 20),
+                                horizontal: 30, vertical: 25),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -112,26 +175,46 @@ class _ChattingState extends State<Chatting> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      Text(
-                                        "Type a message",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.fade,
-                                        style: TextStyle(
-                                            color: Color(0xffe3d1da),
-                                            fontSize: 19,
-                                            fontWeight: FontWeight.w400),
+                                      Expanded(
+                                        child: Container(
+                                            height: 70,
+                                            child: TextFormField(
+                                              cursorColor: Color(0xffe3d1da),
+                                              decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  focusedBorder:
+                                                      InputBorder.none,
+                                                  enabledBorder:
+                                                      InputBorder.none,
+                                                  errorBorder: InputBorder.none,
+                                                  hintStyle: TextStyle(
+                                                      color: Color(0xffe3d1da)),
+                                                  disabledBorder:
+                                                      InputBorder.none,
+                                                  contentPadding:
+                                                      const EdgeInsets.only(
+                                                          left: 10,
+                                                          top: 16,
+                                                          right: 15),
+                                                  hintText: "Type a message"),
+                                            )),
                                       ),
-                                      Container(
-                                        width: 50,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          gradient: getLinearGradient(),
-                                          borderRadius:
-                                              BorderRadius.circular(70),
+                                      GestureDetector(
+                                        onTap: () {
+                                          print("Send Clicked");
+                                        },
+                                        child: Container(
+                                          width: 50,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            gradient: getLinearGradient(),
+                                            borderRadius:
+                                                BorderRadius.circular(70),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Icon(Icons.send,
+                                              color: Colors.white, size: 26),
                                         ),
-                                        alignment: Alignment.center,
-                                        child: Icon(Icons.send,
-                                            color: Colors.white, size: 26),
                                       ),
                                     ],
                                   ),
@@ -139,19 +222,23 @@ class _ChattingState extends State<Chatting> {
                               ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  CustomPaint(
-                    painter: BorderPainter(),
-                    child: Container(),
-                  ),
-                ],
+                    CustomPaint(
+                      painter: BorderPainter(),
+                      size: Size(100, 310),
+                      child: Container(
+                        width: 100,
+                        height: 310,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -202,45 +289,28 @@ class Bubble extends StatelessWidget {
             bottomLeft: Radius.circular(25.0),
             bottomRight: Radius.circular(25.0),
           );
-    return Column(
-      crossAxisAlignment: align,
-      children: <Widget>[
-        Container(
-          margin:
-              EdgeInsets.only(left: isMe ? 100 : 15, right: !isMe ? 100 : 15),
-          padding: const EdgeInsets.all(15.0),
-          decoration: BoxDecoration(
-              boxShadow: [], borderRadius: radius, gradient: gradient),
-          child: Stack(
-            children: <Widget>[
-              Text(
-                message,
-                style: TextStyle(fontSize: 20, color: Color(0xff6a515e)),
-              ),
-              /*
-              Positioned(
-                bottom: 0.0,
-                right: 0.0,
-                child: Row(
-                  children: <Widget>[
-                    Text(time,
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: 10.0,
-                        )),
-                    SizedBox(width: 3.0),
-                    Icon(
-                      Icons,
-                      size: 12.0,
-                      color: Colors.black38,
-                    )
-                  ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Column(
+        crossAxisAlignment: align,
+        children: <Widget>[
+          Container(
+            margin:
+                EdgeInsets.only(left: isMe ? 100 : 15, right: !isMe ? 100 : 15),
+            padding: const EdgeInsets.all(15.0),
+            decoration: BoxDecoration(
+                boxShadow: [], borderRadius: radius, gradient: gradient),
+            child: Stack(
+              children: <Widget>[
+                Text(
+                  message,
+                  style: TextStyle(fontSize: 20, color: Color(0xff6a515e)),
                 ),
-              ) */
-            ],
-          ),
-        )
-      ],
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

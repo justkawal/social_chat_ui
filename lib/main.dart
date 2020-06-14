@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:social_mobile_app/chatting.dart';
-import 'package:social_mobile_app/landing.dart';
-import 'package:social_mobile_app/messages.dart';
 import 'package:social_mobile_app/starting_page.dart';
-
-import 'profile.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,19 +13,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: Starter(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+class Starter extends StatefulWidget {
+  Starter({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _StarterState createState() => _StarterState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _StarterState extends State<Starter> {
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays([]);
@@ -39,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Chatting(),
+      body: StartingPage(),
     );
   }
 }
