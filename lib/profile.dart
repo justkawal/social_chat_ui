@@ -19,7 +19,7 @@ class _ProfileState extends State<Profile> {
     ["Follows", "3000"]
   ];
 
-  String profileImage = "assets/profile.png";
+  String profileImage = "assets/profile.jpg";
 
   List<String> images = [
     "art3",

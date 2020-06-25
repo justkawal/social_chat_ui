@@ -199,7 +199,7 @@ class _MessagesState extends State<Messages> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(70),
               child: Image(
-                image: AssetImage("assets/profile.png"),
+                image: AssetImage("assets/profile.jpg"),
                 fit: BoxFit.cover,
               ),
             ),

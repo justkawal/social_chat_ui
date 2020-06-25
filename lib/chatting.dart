@@ -95,7 +95,7 @@ class _ChattingState extends State<Chatting> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(60),
                             child: Image(
-                              image: AssetImage("assets/profile.png"),
+                              image: AssetImage("assets/profile.jpg"),
                               width: 50,
                               height: 50,
                               fit: BoxFit.cover,

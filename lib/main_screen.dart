@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: Image(
                         width: 90,
                         height: 90,
-                        image: AssetImage("assets/profile.png"),
+                        image: AssetImage("assets/profile.jpg"),
                         fit: BoxFit.cover,
                       ),
                     )
@@ -165,7 +165,7 @@ class _MainScreenState extends State<MainScreen> {
                               borderRadius: BorderRadius.circular(25),
                               child: Image(
                                 image: AssetImage(
-                                    "assets/profile.png"), // list[1] background image url and change to Image.network()
+                                    "assets/profile.jpg"), // list[1] background image url and change to Image.network()
                                 fit: BoxFit.cover,
                                 width: 45,
                                 height: 45,
