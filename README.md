@@ -1,16 +1,11 @@
-# social_mobile_app
+# Donate (Motivate me by Donating)
 
-A new Flutter project.
+Please consider donating if you think social_chat_ui is helpful to you or that my work is valuable.
 
-## Getting Started
+[I will be happy if you can help me pay my rent. Paypal Me ](https://www.paypal.me/kawal7415) on paypal.me/kawal7415
 
-This project is a starting point for a Flutter application.
+# social_chat_ui
 
-A few resources to get you started if this is your first Flutter project:
+Social Chat UI design
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="image0.png" width="30%" height="30%"> <img src="image1.png" width="30%" height="30%"> <img src="image2.png" width="30%" height="30%"> <img src="image3.png" width="30%" height="30%"> <img src="image4.png" width="30%" height="30%"> <img src="image5.png" width="30%" height="30%">
