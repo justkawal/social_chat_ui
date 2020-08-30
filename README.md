@@ -2,7 +2,7 @@
 
 Please consider donating if you think social_chat_ui is helpful to you or that my work is valuable.
 
-[Know why this UI is free for you!](https://www.paypal.me/kawal7415) on paypal.me/kawal7415
+[Know why this UI is free for you!](https://www.paypal.me/kawal7415)
 
 # social_chat_ui
 
